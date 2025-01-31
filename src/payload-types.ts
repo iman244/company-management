@@ -13,6 +13,12 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    companies: Company;
+    operations: Operation;
+    'operation-node-categories': OperationNodeCategory;
+    'operation-nodes': OperationNode;
+    'node-categories': NodeCategory;
+    nodes: Node;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -21,6 +27,12 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    companies: CompaniesSelect<false> | CompaniesSelect<true>;
+    operations: OperationsSelect<false> | OperationsSelect<true>;
+    'operation-node-categories': OperationNodeCategoriesSelect<false> | OperationNodeCategoriesSelect<true>;
+    'operation-nodes': OperationNodesSelect<false> | OperationNodesSelect<true>;
+    'node-categories': NodeCategoriesSelect<false> | NodeCategoriesSelect<true>;
+    nodes: NodesSelect<false> | NodesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -95,6 +107,71 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "companies".
+ */
+export interface Company {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "operations".
+ */
+export interface Operation {
+  id: number;
+  name: string;
+  company: number | Company;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "operation-node-categories".
+ */
+export interface OperationNodeCategory {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "operation-nodes".
+ */
+export interface OperationNode {
+  id: number;
+  name: string;
+  category: number | OperationNodeCategory;
+  operation: number | Operation;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "node-categories".
+ */
+export interface NodeCategory {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "nodes".
+ */
+export interface Node {
+  id: number;
+  name: string;
+  company: number | Company;
+  category: number | NodeCategory;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -107,6 +184,30 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'companies';
+        value: number | Company;
+      } | null)
+    | ({
+        relationTo: 'operations';
+        value: number | Operation;
+      } | null)
+    | ({
+        relationTo: 'operation-node-categories';
+        value: number | OperationNodeCategory;
+      } | null)
+    | ({
+        relationTo: 'operation-nodes';
+        value: number | OperationNode;
+      } | null)
+    | ({
+        relationTo: 'node-categories';
+        value: number | NodeCategory;
+      } | null)
+    | ({
+        relationTo: 'nodes';
+        value: number | Node;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -182,6 +283,65 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "companies_select".
+ */
+export interface CompaniesSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "operations_select".
+ */
+export interface OperationsSelect<T extends boolean = true> {
+  name?: T;
+  company?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "operation-node-categories_select".
+ */
+export interface OperationNodeCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "operation-nodes_select".
+ */
+export interface OperationNodesSelect<T extends boolean = true> {
+  name?: T;
+  category?: T;
+  operation?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "node-categories_select".
+ */
+export interface NodeCategoriesSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "nodes_select".
+ */
+export interface NodesSelect<T extends boolean = true> {
+  name?: T;
+  company?: T;
+  category?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
