@@ -15,10 +15,9 @@ export interface Config {
     media: Media;
     companies: Company;
     operations: Operation;
-    'operation-node-categories': OperationNodeCategory;
-    'operation-nodes': OperationNode;
     'node-categories': NodeCategory;
     nodes: Node;
+    personnel: Personnel;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -29,10 +28,9 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     companies: CompaniesSelect<false> | CompaniesSelect<true>;
     operations: OperationsSelect<false> | OperationsSelect<true>;
-    'operation-node-categories': OperationNodeCategoriesSelect<false> | OperationNodeCategoriesSelect<true>;
-    'operation-nodes': OperationNodesSelect<false> | OperationNodesSelect<true>;
     'node-categories': NodeCategoriesSelect<false> | NodeCategoriesSelect<true>;
     nodes: NodesSelect<false> | NodesSelect<true>;
+    personnel: PersonnelSelect<false> | PersonnelSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -128,28 +126,6 @@ export interface Operation {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "operation-node-categories".
- */
-export interface OperationNodeCategory {
-  id: number;
-  name: string;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "operation-nodes".
- */
-export interface OperationNode {
-  id: number;
-  name: string;
-  category: number | OperationNodeCategory;
-  operation: number | Operation;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "node-categories".
  */
 export interface NodeCategory {
@@ -164,9 +140,22 @@ export interface NodeCategory {
  */
 export interface Node {
   id: number;
-  name: string;
   company: number | Company;
   category: number | NodeCategory;
+  type: 'revenue' | 'non-revenue';
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "personnel".
+ */
+export interface Personnel {
+  id: number;
+  node: number | Node;
+  'full name': string;
+  'national code': string;
   updatedAt: string;
   createdAt: string;
 }
@@ -194,20 +183,16 @@ export interface PayloadLockedDocument {
         value: number | Operation;
       } | null)
     | ({
-        relationTo: 'operation-node-categories';
-        value: number | OperationNodeCategory;
-      } | null)
-    | ({
-        relationTo: 'operation-nodes';
-        value: number | OperationNode;
-      } | null)
-    | ({
         relationTo: 'node-categories';
         value: number | NodeCategory;
       } | null)
     | ({
         relationTo: 'nodes';
         value: number | Node;
+      } | null)
+    | ({
+        relationTo: 'personnel';
+        value: number | Personnel;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -305,26 +290,6 @@ export interface OperationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "operation-node-categories_select".
- */
-export interface OperationNodeCategoriesSelect<T extends boolean = true> {
-  name?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "operation-nodes_select".
- */
-export interface OperationNodesSelect<T extends boolean = true> {
-  name?: T;
-  category?: T;
-  operation?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "node-categories_select".
  */
 export interface NodeCategoriesSelect<T extends boolean = true> {
@@ -337,9 +302,21 @@ export interface NodeCategoriesSelect<T extends boolean = true> {
  * via the `definition` "nodes_select".
  */
 export interface NodesSelect<T extends boolean = true> {
-  name?: T;
   company?: T;
   category?: T;
+  type?: T;
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "personnel_select".
+ */
+export interface PersonnelSelect<T extends boolean = true> {
+  node?: T;
+  'full name'?: T;
+  'national code'?: T;
   updatedAt?: T;
   createdAt?: T;
 }

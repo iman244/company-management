@@ -10,11 +10,6 @@ export const Nodes: CollectionConfig = {
   },
   fields: [
     {
-      name: 'name',
-      type: 'text',
-      required: true,
-    },
-    {
       name: 'company',
       type: 'relationship',
       relationTo: 'companies',
@@ -24,6 +19,17 @@ export const Nodes: CollectionConfig = {
       name: 'category',
       type: 'relationship',
       relationTo: 'node-categories',
+      required: true,
+    },
+    {
+      name: 'type',
+      type: 'select',
+      options: ['revenue', 'non-revenue'],
+      required: true,
+    },
+    {
+      name: 'name',
+      type: 'text',
       required: true,
     },
   ],

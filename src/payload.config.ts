@@ -12,9 +12,8 @@ import { Media } from './collections/Media'
 import { Operations } from './collections/Operations'
 import { NodeCategories } from './collections/NodeCategories'
 import { Nodes } from './collections/Nodes'
-import { OperationNodeCategories } from './collections/OperationNodeCategories'
-import { OperationNodes } from './collections/OperationNodes'
 import { Companies } from './collections/Companies'
+import { Personnel } from './collections/Personnel'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -31,10 +30,9 @@ export default buildConfig({
     Media,
     Companies,
     Operations,
-    OperationNodeCategories,
-    OperationNodes,
     NodeCategories,
     Nodes,
+    Personnel,
     // Revenues,
   ],
   editor: lexicalEditor(),
